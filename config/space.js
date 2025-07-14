@@ -11,7 +11,21 @@ export const spaceCardSchema = (text, imageUrl) => {
                   {
                     "image": {
                       "imageUrl": imageUrl,
-                      "altText": "Internal Image"
+                      "altText": "Internal Image",
+                    },
+                  },
+                  {
+                    "buttonList": {
+                      "buttons": [
+                        {
+                          "text": "View Image",
+                          "onClick": {
+                            "openLink": {
+                              "url": imageUrl
+                            }
+                          }
+                        }
+                      ]
                     }
                   }
                 ]
