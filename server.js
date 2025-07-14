@@ -1,9 +1,9 @@
 import express from "express";
 import multer from "multer";
 import stream from "stream";
+import { chatClient } from "./config/chat.js";
 import { storage } from "./config/storage.js";
 import { spaceCardSchema } from "./config/space.js";
-import { chatClient } from "./config/chat.js";
 
 const app = express();
 const upload = multer({ storage: multer.memoryStorage() });
@@ -34,6 +34,7 @@ app.post("/notify", upload.any(), async (req, res) => {
     try {
       fileUrl = await uploadFile(file);
     } catch (error) {
+      console.error(error);
       return res.status(500).json({ message: "Error uploading file." });
     }
   }
@@ -92,6 +93,7 @@ const uploadFile = async (file) => {
 
     return blob.publicUrl();
   } catch (err) {
+    console.error(err);
     throw new Error(err.message);
   }
 }
