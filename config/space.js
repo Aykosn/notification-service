@@ -1,5 +1,5 @@
 export const spaceCardSchema = (text, imageUrl) => {
-  if (imageUrl) {
+  if(imageUrl) {
     const schema = {
       "text": text,
       "cardsV2": [
@@ -18,7 +18,7 @@ export const spaceCardSchema = (text, imageUrl) => {
                     "buttonList": {
                       "buttons": [
                         {
-                          "text": "View Image",
+                          "text": "Ver",
                           "onClick": {
                             "openLink": {
                               "url": imageUrl
