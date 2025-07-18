@@ -12,23 +12,23 @@ export const notify = async (req, res) => {
   let fileUrl;
   
   if (!notificationType || !recipients || !schedule || !message) {
-    return res.status(400).json({ message: "Missing required fields." });
+    return res.status(400).json({ error: true, message: "Missing required fields." });
   }
 
   if(recipients.length === 0) {
-    return res.status(400).json({ message: "Recipients are required." });
+    return res.status(400).json({ error: true, message: "Recipients are required." });
   }
 
   if(!Array.isArray(recipients)) {
-    return res.status(400).json({ message: "Recipients must be an array." });
+    return res.status(400).json({ error: true, message: "Recipients must be an array." });
   }
 
   if(notificationType !== "email" && notificationType !== "spaces") {
-    return res.status(400).json({ message: "Invalid notification type." });
+    return res.status(400).json({ error: true, message: "Invalid notification type." });
   }
 
   if(schedule && isNaN(new Date(schedule).getTime())) {
-    return res.status(400).json({ message: "Invalid schedule date." });
+    return res.status(400).json({ error: true, message: "Invalid schedule date." });
   }
 
   if(file) {
@@ -38,7 +38,7 @@ export const notify = async (req, res) => {
     } catch (error) {
       // Debug
       console.error(error);
-      return res.status(500).json({ message: "Error uploading file." });
+      return res.status(500).json({ error: true, message: "Error uploading file." });
     }
   }
 
@@ -63,10 +63,10 @@ export const notify = async (req, res) => {
       } catch (err) {
         // Debug
         console.error(err);
-        return res.status(500).json({ message: "Error sending spaces notification." });
+        return res.status(500).json({ error: true, message: "Error sending spaces notification." });
       }
     }
   }
 
-  return res.status(201).json({ message: "Notification created successfully!" });
+  return res.status(201).json({ error: false, message: "Notification created successfully!" });
 }
